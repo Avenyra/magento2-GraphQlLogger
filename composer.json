@@ -1,0 +1,21 @@
+{
+  "name": "avenyra/module-graph-ql-logger",
+  "version": "1.0.0",
+  "description": "Magento 2 module to log graphql requests.",
+  "type": "magento2-module",
+  "require": {
+    "magento/framework": "*",
+    "avenyra/module-base": "1.0.*"
+  },
+  "license": [
+    ""
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Avenyra\\GraphQlLogger\\": ""
+    }
+  }
+}

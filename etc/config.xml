@@ -10,6 +10,7 @@
         <av_graphql_logger>
             <general>
                 <enabled>1</enabled>
+                <cached_request_logger>1</cached_request_logger>
             </general>
         </av_graphql_logger>
     </default>

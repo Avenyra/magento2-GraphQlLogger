@@ -1,11 +1,29 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Configure custom file logger with handler -->
+    <type name="Avenyra\GraphQlLogger\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">graphql_logger</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="system" xsi:type="object">Avenyra\GraphQlLogger\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Add custom GraphQl logger to the logger pool -->
     <type name="Magento\GraphQl\Model\Query\Logger\LoggerPool">
         <arguments>
             <argument name="loggers" xsi:type="array">
-                <item name="avenyraGraphqlLogger" xsi:type="object">Avenyra\GraphQlLogger\Model\Query\Logger\GraphQlLogger</item>
+                <item name="av_graphql_logger" xsi:type="object">Avenyra\GraphQlLogger\Model\Query\Logger\GraphQlLogger</item>
             </argument>
         </arguments>
+    </type>
+
+    <!-- Plugin to add custom data (query, variables, URL) to log data -->
+    <type name="Magento\GraphQl\Helper\Query\Logger\LogData">
+        <plugin name="av_graphql_logger_prepare_data"
+                type="Avenyra\GraphQlLogger\Plugin\PrepareCustomLoggerData"
+                sortOrder="10"/>
     </type>
 </config>

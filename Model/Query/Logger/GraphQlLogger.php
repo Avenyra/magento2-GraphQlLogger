@@ -1,43 +1,50 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Avenyra\GraphQlLogger\Model\Query\Logger;
 
 use Avenyra\GraphQlLogger\Helper\Config as LoggerConfig;
-use Magento\GraphQl\Model\Query\Logger\LoggerInterface;
+use Avenyra\GraphQlLogger\Helper\Logger;
+use Avenyra\GraphQlLogger\Api\LoggerInterface;
 
 class GraphQlLogger implements LoggerInterface
 {
     /**
      * @param LoggerConfig $loggerConfig
+     * @param Logger $logger
      */
     public function __construct(
-        private readonly LoggerConfig $loggerConfig
+        private readonly LoggerConfig $loggerConfig,
+        private readonly Logger $logger
     ) {
     }
 
     /**
+     * Execute logger to record GraphQL query details
+     *
      * @param array $queryDetails
      * @return void
-     * @throws \Zend_Log_Exception
      */
     public function execute(array $queryDetails): void
     {
-        if (!$this->loggerConfig->isLoggerEnabled()) {
+        if (!$this->loggerConfig->isLoggerEnabled() || $queryDetails[LoggerInterface::HTTP_METHOD] === 'GET') {
             return;
         }
-        $logger = $this->getLoggerObject();
-        $logger->info('GraphQl query executed: ' . print_r($queryDetails, true));
+        $this->logger->log($queryDetails);
     }
 
     /**
-     * @return \Zend_Log
-     * @throws \Zend_Log_Exception
+     * Execute logger to record cached GraphQL query details
+     *
+     * @param array $queryDetails
+     * @return void
      */
-    private function getLoggerObject()
+    public function logCachedQuery(array $queryDetails): void
     {
-        $writer = new \Zend_Log_Writer_Stream(BP . '/var/log/custom.log');
-        $logger = new \Zend_Log();
-        $logger->addWriter($writer);
-        return $logger;
+        if (!$this->loggerConfig->isLoggerEnabled() || !$this->loggerConfig->isCachedRequestLoggerEnabled()) {
+            return;
+        }
+        $this->logger->log($queryDetails);
     }
 }

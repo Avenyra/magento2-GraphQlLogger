@@ -18,6 +18,11 @@
                     <comment>Enable or disable the graphql logger.</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
+                <field id="cached_request_logger" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Enable Cached Request Logger</label>
+                    <comment>Enable or disable the graphql logger for cached requests. This will impact the performance.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
             </group>
         </section>
     </system>

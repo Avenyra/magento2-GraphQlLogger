@@ -1,23 +1,23 @@
 {
-  "name": "avenyra/module-graph-ql-logger",
-  "version": "1.0.0",
-  "description": "Magento 2 module to log GraphQL requests for headless storefronts. Logs all GraphQL queries including cached GET requests.",
-  "type": "magento2-module",
-  "require": {
-    "php": "^8.3",
-    "magento/framework": "^103.0",
-    "magento/module-graph-ql": "^100.4",
-    "avenyra/module-base": "1.0.*"
-  },
-  "license": [
-    "proprietary"
-  ],
-  "autoload": {
-    "files": [
-      "registration.php"
+    "name": "avenyra/module-graph-ql-logger",
+    "version": "1.0.0",
+    "description": "Magento 2 module to log GraphQL requests for headless storefronts.",
+    "type": "magento2-module",
+    "require": {
+        "php": "^8.1 || ^8.2 || ^8.3",
+        "magento/framework": "^103.0",
+        "magento/module-graph-ql": "^100.4",
+        "avenyra/module-base": "1.0.*"
+    },
+    "license": [
+        "proprietary"
     ],
-    "psr-4": {
-      "Avenyra\\GraphQlLogger\\": ""
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Avenyra\\GraphQlLogger\\": ""
+        }
     }
-  }
 }

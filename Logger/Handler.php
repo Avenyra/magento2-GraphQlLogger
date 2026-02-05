@@ -1,26 +1,26 @@
 <?php
 
+/**
+ * Copyright © Avenyra. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
 declare(strict_types=1);
 
 namespace Avenyra\GraphQlLogger\Logger;
 
 use Magento\Framework\Logger\Handler\Base;
-use Monolog\Level;
+use Monolog\Logger as MonologLogger;
 
-/**
- * Custom log handler for GraphQL queries
- *
- * Writes GraphQL query logs to a dedicated log file.
- */
 class Handler extends Base
 {
     /**
      * @var string
      */
-    protected $fileName = '/var/log/graphql_debug.log';
+    protected $fileName = 'var/log/graphql_queries.log';
 
     /**
      * @var int
      */
-    protected $loggerType = \Monolog\Logger::DEBUG;
+    protected $loggerType = MonologLogger::DEBUG;
 }

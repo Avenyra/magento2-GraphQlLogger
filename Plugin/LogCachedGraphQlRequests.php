@@ -1,7 +1,15 @@
 <?php
 
+/**
+ * Copyright © Avenyra. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+
 namespace Avenyra\GraphQlLogger\Plugin;
 
+use GraphQL\Error\SyntaxError;
 use Magento\Framework\App\FrontControllerInterface;
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\App\Request\Http;
@@ -21,13 +29,14 @@ class LogCachedGraphQlRequests
     /**
      * @var QueryParser
      */
-    private $queryParser;
+    private QueryParser $queryParser;
 
     /**
      * @param SerializerInterface $jsonSerializer
      * @param LogData $logDataHelper
      * @param SchemaGeneratorInterface $schemaGenerator
      * @param GraphQlLogger $graphQlLogger
+     * @param QueryFields $queryFields
      * @param QueryParser|null $queryParser
      */
     public function __construct(
@@ -47,6 +56,8 @@ class LogCachedGraphQlRequests
      * @param FrontControllerInterface $_
      * @param RequestInterface $request
      * @return array
+     * @throws GraphQlInputException
+     * @throws SyntaxError
      */
     public function beforeDispatch(FrontControllerInterface $_, RequestInterface $request): array
     {
@@ -61,7 +72,7 @@ class LogCachedGraphQlRequests
             $this->queryFields->setQuery($parsedQuery, $data['variables'] ?? null);
             $schema = $this->schemaGenerator->generate();
 
-            if (!isset($data['query']) || strpos($data['query'], 'IntrospectionQuery') === false) {
+            if (!isset($data['query']) || !str_contains($data['query'], 'IntrospectionQuery')) {
                 $queryInformation = $this->logDataHelper->getLogData($request, $data, $schema, $this->httpResponse);
                 $this->graphQlLogger->logCachedQuery($queryInformation);
             }

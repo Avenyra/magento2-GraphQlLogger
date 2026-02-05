@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Copyright © Avenyra. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
 declare(strict_types=1);
 
 namespace Avenyra\GraphQlLogger\Helper;
@@ -7,15 +12,10 @@ namespace Avenyra\GraphQlLogger\Helper;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Store\Model\ScopeInterface;
 
-/**
- * Configuration helper for GraphQL Logger module
- *
- * Provides access to module configuration settings stored in core_config_data.
- */
 class Config
 {
-    private const XML_PATH_LOGGER_ENABLED = 'av_graphql_logger/general/enabled';
-    private const XML_PATH_CACHED_REQUEST_LOGGER_ENABLED = 'av_graphql_logger/general/cached_request_logger';
+    private const string XML_PATH_LOGGER_ENABLED = 'av_graphql_logger/general/enabled';
+    private const string XML_PATH_CACHED_REQUEST_LOGGER_ENABLED = 'av_graphql_logger/general/cached_request_logger';
 
     /**
      * @param ScopeConfigInterface $scopeConfig

@@ -1,9 +1,15 @@
 <?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Avenyra All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <!-- Plugin to log cached GraphQL requests -->
     <type name="Magento\Framework\App\FrontControllerInterface">
-        <plugin name="log_cached_graphql_requests"
+        <plugin name="av_log_cached_graphql_requests"
                 type="Avenyra\GraphQlLogger\Plugin\LogCachedGraphQlRequests"
                 sortOrder="-10"/>
     </type>

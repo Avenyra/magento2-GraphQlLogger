@@ -1,10 +1,16 @@
 <?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Avenyra All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <!-- Configure custom file logger with handler -->
     <type name="Avenyra\GraphQlLogger\Logger\Logger">
         <arguments>
-            <argument name="name" xsi:type="string">graphql_logger</argument>
+            <argument name="name" xsi:type="string">av_graphql_logger</argument>
             <argument name="handlers" xsi:type="array">
                 <item name="system" xsi:type="object">Avenyra\GraphQlLogger\Logger\Handler</item>
             </argument>
@@ -23,7 +29,7 @@
     <!-- Plugin to add custom data (query, variables, URL) to log data -->
     <type name="Magento\GraphQl\Helper\Query\Logger\LogData">
         <plugin name="av_graphql_logger_prepare_data"
-                type="Avenyra\GraphQlLogger\Plugin\PrepareCustomLoggerData"
+                type="Avenyra\GraphQlLogger\Plugin\PrepareLoggerData"
                 sortOrder="10"/>
     </type>
 </config>
